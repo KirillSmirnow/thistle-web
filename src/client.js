@@ -36,7 +36,10 @@ function headers() {
 }
 
 function error(response) {
-    if (response.responseJSON != null) {
+    if (response.status === 401) {
+        localStorage.removeItem("accessToken");
+        window.location.replace("/index.html");
+    } else if (response.responseJSON != null) {
         if (response.responseJSON.developerMessage != null) {
             console.log("Error: " + response.responseJSON.developerMessage);
             alert(response.responseJSON.userMessage);

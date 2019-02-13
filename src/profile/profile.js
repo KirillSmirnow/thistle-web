@@ -1,6 +1,3 @@
-// TEST
-localStorage.setItem("accessToken", "OAzq4tN8JyNKXuzVhSImhPZGH1EHXve6vxCsLLWOsJ2GBB559g3mb7w3ItFVTb4Dgc1KO0oDku8RkX3U71NxBmhrVG2CDfW2YqKg3vrVsuxweupLRRAdZ7VmjJy4qYbM");
-
 audios = [];
 currentAudio = -1;
 
