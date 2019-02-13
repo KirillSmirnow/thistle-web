@@ -1,4 +1,4 @@
-API = "http://api.thistle.ml";
+const API = "http://api.thistle.ml";
 
 function vkAuth(vkAuth, callback) {
     $.post({
@@ -11,7 +11,19 @@ function vkAuth(vkAuth, callback) {
     });
 }
 
+function getProfile(callback) {
+    $.get({
+        url: API + "/api/profile",
+        success: callback,
+        error: error
+    });
+}
+
 function error(response) {
-    console.log("Error: " + response.responseJSON.developerMessage);
-    alert(response.responseJSON.userMessage);
+    if (response.responseJSON.developerMessage != null) {
+        console.log("Error: " + response.responseJSON.developerMessage);
+        alert(response.responseJSON.userMessage);
+    } else {
+        console.log("Error: " + response.responseJSON);
+    }
 }
