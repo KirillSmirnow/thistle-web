@@ -24,6 +24,6 @@ function error(response) {
         console.log("Error: " + response.responseJSON.developerMessage);
         alert(response.responseJSON.userMessage);
     } else {
-        console.log("Error: " + response.responseJSON);
+        console.log("Error: " + JSON.stringify(response.responseJSON));
     }
 }
