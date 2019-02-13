@@ -2,8 +2,9 @@
 localStorage.setItem("accessToken", "OAzq4tN8JyNKXuzVhSImhPZGH1EHXve6vxCsLLWOsJ2GBB559g3mb7w3ItFVTb4Dgc1KO0oDku8RkX3U71NxBmhrVG2CDfW2YqKg3vrVsuxweupLRRAdZ7VmjJy4qYbM");
 
 audios = [];
-const accessToken = localStorage.getItem("accessToken");
+currentAudio = -1;
 
+const accessToken = localStorage.getItem("accessToken");
 if (accessToken == null) {
     window.location.replace("/index.html");
 } else {
@@ -17,6 +18,13 @@ if (accessToken == null) {
     });
 }
 
+document.getElementById("main-controls").addEventListener('ended', function () {
+    playAudio(Number(currentAudio) + 1);
+});
+document.getElementById("main-controls").addEventListener('error', function () {
+    playAudio(Number(currentAudio) + 1);
+});
+
 function refreshAudios() {
     $("#playlist").empty();
     for (let i in audios) {
@@ -29,13 +37,20 @@ function refreshAudios() {
         playButton.addClass("play-button");
         playButton.text("Play");
         playButton.click(function () {
-            console.log("Play " + i);
-            $("#main-controls").attr("src", "http://thistle.ml" + audios[i].url);
-            $("#main-controls")[0].play();
+            playAudio(i);
         });
 
         let audioName = $("<span>");
         element.append(audioName);
         audioName.text(audios[i].name);
+    }
+}
+
+function playAudio(index) {
+    if (index >= 0 && index < audios.length) {
+        currentAudio = index;
+        $("#audio-name").text(audios[index].name);
+        $("#main-controls").attr("src", "http://thistle.ml" + audios[index].url);
+        $("#main-controls")[0].play();
     }
 }
