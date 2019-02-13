@@ -14,5 +14,5 @@ function vkAuth(vkAuth, callback) {
 
 function error(response) {
     console.log("Error: " + response.responseJSON.developerMessage);
-    alert(response.responseJSON.userMesage);
+    alert(response.responseJSON.userMessage);
 }
