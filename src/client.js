@@ -1,4 +1,4 @@
-API = "api.thistle.ml";
+API = "http://api.thistle.ml";
 
 function vkAuth(vkAuth, callback) {
     $.post({
