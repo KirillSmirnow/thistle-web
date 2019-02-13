@@ -14,16 +14,27 @@ function vkAuth(vkAuth, callback) {
 function getProfile(callback) {
     $.get({
         url: API + "/api/profile",
+        headers: headers(),
         success: callback,
         error: error
     });
 }
 
+function headers() {
+    return {
+        "Authorization": "Bearer " + localStorage.getItem("accessToken")
+    }
+}
+
 function error(response) {
-    if (response.responseJSON.developerMessage != null) {
-        console.log("Error: " + response.responseJSON.developerMessage);
-        alert(response.responseJSON.userMessage);
+    if (response.responseJSON != null) {
+        if (response.responseJSON.developerMessage != null) {
+            console.log("Error: " + response.responseJSON.developerMessage);
+            alert(response.responseJSON.userMessage);
+        } else {
+            console.log("Error: " + JSON.stringify(response.responseJSON));
+        }
     } else {
-        console.log("Error: " + JSON.stringify(response.responseJSON));
+        console.log("Error: " + JSON.stringify(response));
     }
 }
