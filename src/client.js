@@ -4,6 +4,7 @@ function vkAuth(vkAuth, callback) {
     $.post({
         url: API + "/auth/vk",
         dataType: "json",
+        contentType: "application/json",
         data: JSON.stringify(vkAuth),
         success: function (response) {
             console.log(response);
