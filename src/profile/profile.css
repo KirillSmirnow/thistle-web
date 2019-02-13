@@ -1,3 +1,5 @@
+/* HEADER */
+
 #topBar {
     position: fixed;
     top: 0;
@@ -12,30 +14,26 @@
     margin: 10px;
 }
 
-.content {
-    margin-top: 45px;
-}
-
-#player {
+#controls {
     margin: auto;
     width: 600px;
-}
-
-#controls {
-    padding: 10px;
-    margin-bottom: 5px;
-    text-align: center;
-    background-color: lightcyan;
-    border-radius: 20px;
+    /*background-color: lightcyan;*/
+    /*border-radius: 20px;*/
 }
 
 #main-controls {
-    width: 500px;
+    width: 100%;
+}
+
+/* CENTER */
+
+.content {
+    margin-top: 120px;
 }
 
 #playlist {
-    height: 1000px;
-    border: 1px solid black;
+    margin: auto;
+    width: 600px;
 }
 
 .list-element {
@@ -43,11 +41,12 @@
     height: 50px;
     margin: 5px 0 5px 0;
     border-radius: 20px;
-    background-color: violet;
+    background-color: deeppink;
 }
 
 .play-button {
-    margin: 10px;
-    width: 100px;
+    margin: 10px 10px 10px 30px;
+    width: 70px;
     height: 30px;
+    border-radius: 20px;
 }
