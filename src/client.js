@@ -9,7 +9,7 @@ function vkAuth(vkAuth, callback) {
             console.log(response);
         },
         error: function (response) {
-            console.log("Error: " + response.responseJSON.developerMessage);
+            console.log("Error: " + response.responseJSON);
         }
     });
 }
