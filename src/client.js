@@ -20,6 +20,15 @@ function getProfile(callback) {
     });
 }
 
+function getAudios(callback) {
+    $.get({
+        url: API + "/api/audios",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
 function headers() {
     return {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")
