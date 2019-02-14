@@ -48,7 +48,7 @@ function refreshAudios() {
         let playButton = $("<button>");
         element.append(playButton);
         playButton.addClass("play-button");
-        playButton.text("Play");
+        playButton.text("▶️");
         playButton.click(function () {
             playAudio(i);
         });
