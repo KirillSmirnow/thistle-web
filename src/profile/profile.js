@@ -12,6 +12,7 @@ if (accessToken == null) {
     getAudios(function (audiosRecords) {
         audios = audiosRecords;
         refreshAudios();
+        selectAudio(0);
     });
 }
 
@@ -20,6 +21,21 @@ document.getElementById("main-controls").addEventListener('ended', function () {
 });
 document.getElementById("main-controls").addEventListener('error', function () {
     playAudio(Number(currentAudio) + 1);
+});
+
+$("#previous").click(function () {
+    if ($("#main-controls").prop("paused")) {
+        selectAudio(Number(currentAudio) - 1);
+    } else {
+        playAudio(Number(currentAudio) - 1);
+    }
+});
+$("#next").click(function () {
+    if ($("#main-controls").prop("paused")) {
+        selectAudio(Number(currentAudio) + 1);
+    } else {
+        playAudio(Number(currentAudio) + 1);
+    }
 });
 
 function refreshAudios() {
@@ -43,11 +59,17 @@ function refreshAudios() {
     }
 }
 
-function playAudio(index) {
+function selectAudio(index) {
     if (index >= 0 && index < audios.length) {
         currentAudio = index;
         $("#audio-name").text(audios[index].name);
         $("#main-controls").attr("src", "http://thistle.ml" + audios[index].url);
+    }
+}
+
+function playAudio(index) {
+    if (index >= 0 && index < audios.length) {
+        selectAudio(index);
         $("#main-controls")[0].play();
     }
 }
