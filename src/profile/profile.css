@@ -37,6 +37,10 @@
 
 #audio-name {
     display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 400px;
+    height: 16px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -87,6 +91,7 @@
 }
 
 /* UPLOAD */
+
 #upload-window {
     width: 450px;
     text-align: center;
@@ -109,6 +114,7 @@
 }
 
 /* SPINNER */
+
 .spinner {
     width: 30px;
     height: 30px;
