@@ -103,3 +103,8 @@ function playAudio(index) {
         $("#main-controls")[0].play();
     }
 }
+
+function quit() {
+    localStorage.removeItem("accessToken");
+    window.location.replace("../index.html");
+}
