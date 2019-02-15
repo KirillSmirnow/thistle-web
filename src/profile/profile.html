@@ -32,12 +32,13 @@
     </div>
 </div>
 <div class="content">
+    <input autofocus id="search" placeholder="Search">
     <div id="playlist"></div>
 </div>
 <div hidden id="upload-window">
     <form id="upload-form">
-        <label for="name-input" id="name-label">Name</label><input id="name-input" name="name" type="text"><br/>
-        <input id="file-input" name="file" type="file"><br/>
+        <input id="file-input" name="file" type="file">
+        <input id="name-input" name="name" placeholder="Custom name" type="text">
         <div class="spinner" hidden id="upload-spinner"></div>
         <button id="upload-action">Upload</button>
         <a hidden href="#" id="upload-close" rel="modal:close"></a>
