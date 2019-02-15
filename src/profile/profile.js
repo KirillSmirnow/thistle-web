@@ -9,7 +9,7 @@ if (accessToken == null) {
         $("#name").text(profile["firstName"] + " " + profile["lastName"]);
     });
 
-    refreshAudios();
+    updateAudios();
 }
 
 document.getElementById("main-controls").addEventListener('ended', function () {
@@ -34,6 +34,10 @@ $("#next").click(function () {
     }
 });
 
+$("#shuffle").click(function () {
+    shuffleAudios();
+});
+
 let form = $("#upload-form");
 $("#upload-ref").click(function () {
     form[0].reset();
@@ -44,35 +48,45 @@ form.submit(function (event) {
     uploadAudio(document.getElementById("upload-form"), function () {
         $("#upload-close").click();
         $("#upload-spinner").hide();
-        refreshAudios();
+        updateAudios();
     }, function () {
         $("#upload-spinner").hide();
     });
 });
 
-function refreshAudios() {
+function shuffleAudios() {
+    audios.sort((a, b) => Math.random() - 0.5);
+    refreshAudios();
+    playAudio(0);
+}
+
+function updateAudios() {
     getAudios(function (audiosRecords) {
         audios = audiosRecords;
-        $("#playlist").empty();
-        for (let i in audios) {
-            let element = $("<div>");
-            $("#playlist").append(element);
-            element.addClass("list-element");
-
-            let playButton = $("<button>");
-            element.append(playButton);
-            playButton.addClass("play-button");
-            playButton.text("▶️");
-            playButton.click(function () {
-                playAudio(i);
-            });
-
-            let audioName = $("<span>");
-            element.append(audioName);
-            audioName.text(audios[i].name);
-        }
+        refreshAudios();
         selectAudio(0);
     });
+}
+
+function refreshAudios() {
+    $("#playlist").empty();
+    for (let i in audios) {
+        let element = $("<div>");
+        $("#playlist").append(element);
+        element.addClass("list-element");
+
+        let playButton = $("<button>");
+        element.append(playButton);
+        playButton.addClass("play-button");
+        playButton.text("▶️");
+        playButton.click(function () {
+            playAudio(i);
+        });
+
+        let audioName = $("<span>");
+        element.append(audioName);
+        audioName.text(audios[i].name);
+    }
 }
 
 function selectAudio(index) {

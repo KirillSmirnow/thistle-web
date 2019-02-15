@@ -39,14 +39,20 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    width: 400px;
+    width: 315px;
     height: 16px;
     margin-left: 10px;
     margin-right: 10px;
 }
 
+#shuffle {
+    width: 80px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+
 #upload {
-    float: right;
     margin-right: 12px;
     width: 80px;
     height: 30px;
