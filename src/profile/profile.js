@@ -1,5 +1,6 @@
 AUDIOS = [];
 CURRENT_AUDIO = -1;
+SEARCH_RESULT_ACCEPT_FLAG = false;
 
 // Initialize components
 
@@ -59,6 +60,30 @@ function submitUploadForm(event) {
     }, function () {
         $("#upload-spinner").hide();
     });
+}
+
+function search() {
+    let query = $("#search").val();
+    if (query.length < 3) {
+        SEARCH_RESULT_ACCEPT_FLAG = false;
+        updateAudios();
+    } else {
+        SEARCH_RESULT_ACCEPT_FLAG = true;
+        searchAudio(query, function (result) {
+            if (!SEARCH_RESULT_ACCEPT_FLAG) return;
+            let currentAudioId = CURRENT_AUDIO < 0 ? -1 : AUDIOS[CURRENT_AUDIO].id;
+            AUDIOS = result.mine;
+            if (CURRENT_AUDIO >= 0) {
+                CURRENT_AUDIO = AUDIOS.findIndex(value => value.id === currentAudioId);
+            } else if (AUDIOS.length > 0) {
+                CURRENT_AUDIO = 0;
+                selectAudio(0);
+            } else {
+                CURRENT_AUDIO = -1;
+            }
+            refreshAudios();
+        });
+    }
 }
 
 // Actions
