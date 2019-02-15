@@ -44,6 +44,16 @@ function uploadAudio(formElement, successCallback, errorCallback) {
     });
 }
 
+function deleteAudio(id, callback) {
+    $.ajax({
+        url: API + "/api/audios/" + id,
+        method: 'DELETE',
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
 function headers() {
     return {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")

@@ -97,6 +97,20 @@
     border-radius: 30px;
 }
 
+.audio-label {
+    display: inline-flex;
+    overflow: auto;
+    white-space: nowrap;
+    width: 490px;
+}
+
+.delete-button {
+    width: 35px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 30px;
+}
+
 /* UPLOAD */
 
 #upload-window {

@@ -85,7 +85,18 @@ function refreshAudios() {
 
         let audioName = $("<span>");
         element.append(audioName);
+        audioName.addClass("audio-label");
         audioName.text(audios[i].name);
+
+        let deleteButton = $("<button>");
+        element.append(deleteButton);
+        deleteButton.addClass("delete-button");
+        deleteButton.text("🞩");
+        deleteButton.click(function () {
+            deleteAudio(audios[i].id, function () {
+                element.hide();
+            });
+        });
     }
 }
 
