@@ -1,50 +1,57 @@
-audios = [];
-currentAudio = -1;
+AUDIOS = [];
+CURRENT_AUDIO = -1;
 
-const accessToken = localStorage.getItem("accessToken");
-if (accessToken == null) {
-    window.location.replace("/index.html");
+// Initialize components
+
+document.getElementById("main-controls").addEventListener('ended', function () {
+    playAudio(Number(CURRENT_AUDIO) + 1);
+});
+
+// On page loaded
+
+if (localStorage.getItem("accessToken") == null) {
+    signOut();
 } else {
-    getProfile(function (profile) {
-        $("#name").text(profile["firstName"] + " " + profile["lastName"]);
-    });
-
+    updateProfile();
     updateAudios();
 }
 
-document.getElementById("main-controls").addEventListener('ended', function () {
-    playAudio(Number(currentAudio) + 1);
-});
-document.getElementById("main-controls").addEventListener('error', function () {
-    playAudio(Number(currentAudio) + 1);
-});
+// Controls
 
-$("#previous").click(function () {
+function signOut() {
+    localStorage.removeItem("accessToken");
+    window.location.replace("/index.html");
+}
+
+function switchToPreviousTrack() {
     if ($("#main-controls").prop("paused")) {
-        selectAudio(Number(currentAudio) - 1);
+        selectAudio(Number(CURRENT_AUDIO) - 1);
     } else {
-        playAudio(Number(currentAudio) - 1);
+        playAudio(Number(CURRENT_AUDIO) - 1);
     }
-});
-$("#next").click(function () {
+}
+
+function switchToNextTrack() {
     if ($("#main-controls").prop("paused")) {
-        selectAudio(Number(currentAudio) + 1);
+        selectAudio(Number(CURRENT_AUDIO) + 1);
     } else {
-        playAudio(Number(currentAudio) + 1);
+        playAudio(Number(CURRENT_AUDIO) + 1);
     }
-});
+}
 
-$("#shuffle").click(function () {
-    shuffleAudios();
-});
+function shuffle() {
+    AUDIOS.sort((a, b) => Math.random() - 0.5);
+    refreshAudios();
+    playAudio(0);
+}
 
-let form = $("#upload-form");
-$("#upload-ref").click(function () {
-    form[0].reset();
-});
-form.submit(function (event) {
-    $("#upload-spinner").show();
+function resetUploadForm() {
+    $("#upload-form")[0].reset();
+}
+
+function submitUploadForm(event) {
     event.preventDefault();
+    $("#upload-spinner").show();
     uploadAudio(document.getElementById("upload-form"), function () {
         $("#upload-close").click();
         $("#upload-spinner").hide();
@@ -52,17 +59,34 @@ form.submit(function (event) {
     }, function () {
         $("#upload-spinner").hide();
     });
-});
+}
 
-function shuffleAudios() {
-    audios.sort((a, b) => Math.random() - 0.5);
-    refreshAudios();
-    playAudio(0);
+// Actions
+
+function playAudio(index) {
+    if (index >= 0 && index < AUDIOS.length) {
+        selectAudio(index);
+        $("#main-controls")[0].play();
+    }
+}
+
+function selectAudio(index) {
+    if (index >= 0 && index < AUDIOS.length) {
+        CURRENT_AUDIO = index;
+        $("#audio-name").text(AUDIOS[index].name);
+        $("#main-controls").attr("src", "http://thistle.ml" + AUDIOS[index].url);
+    }
+}
+
+function updateProfile() {
+    getProfile(function (profile) {
+        $("#name").text(profile["firstName"] + " " + profile["lastName"]);
+    });
 }
 
 function updateAudios() {
     getAudios(function (audiosRecords) {
-        audios = audiosRecords;
+        AUDIOS = audiosRecords;
         refreshAudios();
         selectAudio(0);
     });
@@ -70,7 +94,7 @@ function updateAudios() {
 
 function refreshAudios() {
     $("#playlist").empty();
-    for (let i in audios) {
+    for (let i in AUDIOS) {
         let element = $("<div>");
         $("#playlist").append(element);
         element.addClass("list-element");
@@ -86,36 +110,16 @@ function refreshAudios() {
         let audioName = $("<span>");
         element.append(audioName);
         audioName.addClass("audio-label");
-        audioName.text(audios[i].name);
+        audioName.text(AUDIOS[i].name);
 
         let deleteButton = $("<button>");
         element.append(deleteButton);
         deleteButton.addClass("delete-button");
         deleteButton.text("🞩");
         deleteButton.click(function () {
-            deleteAudio(audios[i].id, function () {
+            deleteAudio(AUDIOS[i].id, function () {
                 element.hide();
             });
         });
     }
-}
-
-function selectAudio(index) {
-    if (index >= 0 && index < audios.length) {
-        currentAudio = index;
-        $("#audio-name").text(audios[index].name);
-        $("#main-controls").attr("src", "http://thistle.ml" + audios[index].url);
-    }
-}
-
-function playAudio(index) {
-    if (index >= 0 && index < audios.length) {
-        selectAudio(index);
-        $("#main-controls")[0].play();
-    }
-}
-
-function quit() {
-    localStorage.removeItem("accessToken");
-    window.location.replace("../index.html");
 }

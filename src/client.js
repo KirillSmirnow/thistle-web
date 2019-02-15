@@ -54,6 +54,16 @@ function deleteAudio(id, callback) {
     });
 }
 
+function searchAudio(query, callback) {
+    $.post({
+        url: API + "/api/audios/search",
+        data: {"query": query},
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
 function headers() {
     return {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")

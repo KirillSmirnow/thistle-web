@@ -18,15 +18,17 @@
 <div id="top-bar">
     <nav>
         <div id="name"></div>
-        <a href="#" onclick="quit()">Quit</a>
+        <a href="#" onclick="signOut()">Sign out</a>
     </nav>
     <div id="controls">
         <div id="top-controls">
-            <button id="previous">⏮</button>
-            <button id="next">⏭</button>
+            <button id="previous" onclick="switchToPreviousTrack()">⏮</button>
+            <button id="next" onclick="switchToNextTrack()">⏭</button>
             <span id="audio-name"></span>
-            <button id="shuffle">Shuffle</button>
-            <button id="upload"><a href="#upload-window" id="upload-ref" rel="modal:open">Upload</a></button>
+            <button id="shuffle" onclick="shuffle()">Shuffle</button>
+            <button id="upload">
+                <a href="#upload-window" id="upload-ref" onclick="resetUploadForm()" rel="modal:open">Upload</a>
+            </button>
         </div>
         <audio controls id="main-controls"></audio>
     </div>
@@ -36,7 +38,7 @@
     <div id="playlist"></div>
 </div>
 <div hidden id="upload-window">
-    <form id="upload-form">
+    <form id="upload-form" onsubmit="submitUploadForm(event)">
         <input id="file-input" name="file" type="file">
         <input id="name-input" name="name" placeholder="Custom name" type="text">
         <div class="spinner" hidden id="upload-spinner"></div>
