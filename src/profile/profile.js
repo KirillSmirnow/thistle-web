@@ -85,10 +85,18 @@ function updateProfile() {
 }
 
 function updateAudios() {
+    let currentAudioId = CURRENT_AUDIO < 0 ? -1 : AUDIOS[CURRENT_AUDIO].id;
     getAudios(function (audiosRecords) {
         AUDIOS = audiosRecords;
+        if (CURRENT_AUDIO >= 0) {
+            CURRENT_AUDIO = AUDIOS.findIndex(value => value.id === currentAudioId);
+        } else if (AUDIOS.length > 0) {
+            CURRENT_AUDIO = 0;
+            selectAudio(0);
+        } else {
+            CURRENT_AUDIO = -1;
+        }
         refreshAudios();
-        selectAudio(0);
     });
 }
 
