@@ -29,6 +29,21 @@ function getAudios(callback) {
     });
 }
 
+function uploadAudio(formElement, successCallback, errorCallback) {
+    $.post({
+        url: API + "/api/audios/upload",
+        data: new FormData(formElement),
+        contentType: false,
+        processData: false,
+        headers: headers(),
+        success: successCallback,
+        error: function (response) {
+            error(response);
+            errorCallback();
+        }
+    });
+}
+
 function headers() {
     return {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")

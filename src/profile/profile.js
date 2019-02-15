@@ -9,11 +9,7 @@ if (accessToken == null) {
         $("#name").text(profile["firstName"] + " " + profile["lastName"]);
     });
 
-    getAudios(function (audiosRecords) {
-        audios = audiosRecords;
-        refreshAudios();
-        selectAudio(0);
-    });
+    refreshAudios();
 }
 
 document.getElementById("main-controls").addEventListener('ended', function () {
@@ -38,25 +34,45 @@ $("#next").click(function () {
     }
 });
 
+let form = $("#upload-form");
+$("#upload-ref").click(function () {
+    form[0].reset();
+});
+form.submit(function (event) {
+    $("#upload-spinner").show();
+    event.preventDefault();
+    uploadAudio(document.getElementById("upload-form"), function () {
+        $("#upload-close").click();
+        $("#upload-spinner").hide();
+        refreshAudios();
+    }, function () {
+        $("#upload-spinner").hide();
+    });
+});
+
 function refreshAudios() {
-    $("#playlist").empty();
-    for (let i in audios) {
-        let element = $("<div>");
-        $("#playlist").append(element);
-        element.addClass("list-element");
+    getAudios(function (audiosRecords) {
+        audios = audiosRecords;
+        $("#playlist").empty();
+        for (let i in audios) {
+            let element = $("<div>");
+            $("#playlist").append(element);
+            element.addClass("list-element");
 
-        let playButton = $("<button>");
-        element.append(playButton);
-        playButton.addClass("play-button");
-        playButton.text("▶️");
-        playButton.click(function () {
-            playAudio(i);
-        });
+            let playButton = $("<button>");
+            element.append(playButton);
+            playButton.addClass("play-button");
+            playButton.text("▶️");
+            playButton.click(function () {
+                playAudio(i);
+            });
 
-        let audioName = $("<span>");
-        element.append(audioName);
-        audioName.text(audios[i].name);
-    }
+            let audioName = $("<span>");
+            element.append(audioName);
+            audioName.text(audios[i].name);
+        }
+        selectAudio(0);
+    });
 }
 
 function selectAudio(index) {

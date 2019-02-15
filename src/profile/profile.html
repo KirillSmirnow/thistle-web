@@ -9,6 +9,8 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             src="https://code.jquery.com/jquery-3.3.1.min.js">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" rel="stylesheet"/>
     <script src="https://vk.com/js/api/openapi.js?160" type="text/javascript"></script>
     <script src="../client.js"></script>
 </head>
@@ -20,12 +22,22 @@
             <button id="previous">⏮</button>
             <button id="next">⏭</button>
             <div id="audio-name"></div>
+            <button id="upload"><a href="#upload-window" id="upload-ref" rel="modal:open">Upload</a></button>
         </div>
         <audio controls id="main-controls"></audio>
     </div>
 </div>
 <div class="content">
     <div id="playlist"></div>
+</div>
+<div hidden id="upload-window">
+    <form id="upload-form">
+        <label for="name-input" id="name-label">Name</label><input id="name-input" name="name" type="text"><br/>
+        <input id="file-input" name="file" type="file"><br/>
+        <div class="spinner" hidden id="upload-spinner"></div>
+        <button id="upload-action">Upload</button>
+        <a hidden href="#" id="upload-close" rel="modal:close"></a>
+    </form>
 </div>
 <script src="profile.js"></script>
 </body>
