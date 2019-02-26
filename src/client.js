@@ -7,9 +7,6 @@ function vkAuth(vkAuth, callback) {
         contentType: "application/json",
         data: JSON.stringify(vkAuth),
         success: function (response) {
-            console.log("vkAuth");
-            console.log(response);
-
             getToken(response, callback);
         },
         error: error
@@ -20,6 +17,7 @@ function getToken(code, callback) {
     $.post({
         url: API + "/oauth/token",
         data: {"grant_type": "authorization_code", "code": code},
+        headers: {"Authorization": "Basic " + btoa("thistle:thistle")},
         success: function (response) {
             localStorage.setItem("accessToken", response.token);
             callback();
