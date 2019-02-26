@@ -7,6 +7,9 @@ function vkAuth(vkAuth, callback) {
         contentType: "application/json",
         data: JSON.stringify(vkAuth),
         success: function (response) {
+            console.log("vkAith");
+            console.log(response);
+            
             getToken(response, callback);
         },
         error: error
