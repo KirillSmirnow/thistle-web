@@ -3,13 +3,13 @@ const API = "http://api.thistle.ml";
 function vkAuth(vkAuth, callback) {
     $.post({
         url: API + "/oauth/vk",
-        dataType: "json",
+        dataType: "text",
         contentType: "application/json",
         data: JSON.stringify(vkAuth),
         success: function (response) {
-            console.log("vkAith");
+            console.log("vkAuth");
             console.log(response);
-            
+
             getToken(response, callback);
         },
         error: error
