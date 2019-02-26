@@ -19,7 +19,7 @@ function getToken(code, callback) {
         data: {"grant_type": "authorization_code", "code": code},
         headers: {"Authorization": "Basic " + btoa("thistle:thistle")},
         success: function (response) {
-            localStorage.setItem("accessToken", response.token);
+            localStorage.setItem("accessToken", response.access_token);
             callback();
         },
         error: error
