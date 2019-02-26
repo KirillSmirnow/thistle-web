@@ -2,11 +2,25 @@ const API = "http://api.thistle.ml";
 
 function vkAuth(vkAuth, callback) {
     $.post({
-        url: API + "/auth/vk",
+        url: API + "/oauth/vk",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(vkAuth),
-        success: callback,
+        success: function (response) {
+            getToken(response, callback);
+        },
+        error: error
+    });
+}
+
+function getToken(code, callback) {
+    $.post({
+        url: API + "/oauth/token",
+        data: {"grant_type": "authorization_code", "code": code},
+        success: function (response) {
+            localStorage.setItem("accessToken", response.token);
+            callback();
+        },
         error: error
     });
 }

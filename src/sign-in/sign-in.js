@@ -12,7 +12,6 @@ VK.Widgets.Auth("vk_auth", {
     }
 });
 
-function signInSuccess(response) {
-    localStorage.setItem("accessToken", response.accessToken);
+function signInSuccess() {
     window.location.replace("/profile/profile.html");
 }
