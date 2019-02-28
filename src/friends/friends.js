@@ -72,6 +72,7 @@ function addVkFriends() {
             addButton.click(function () {
                 addVkFriend(friends[i].id, function () {
                     $("#vk-friends-close-ref").click();
+                    switchToOutgoingRequestsTab();
                     updateFriends();
                 });
             });
