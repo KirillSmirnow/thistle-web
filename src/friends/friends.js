@@ -62,7 +62,7 @@ function addVkFriends() {
             let name = $("<span>");
             element.append(name);
             name.addClass("user-name");
-            name.text(friends[i].firstName + " " + friends[i].lastName);
+            name.text(friends[i].first_name + " " + friends[i].last_name);
 
             let addButton = $("<button>");
             element.append(addButton);
