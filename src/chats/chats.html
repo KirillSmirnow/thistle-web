@@ -23,12 +23,14 @@
     </nav>
 </div>
 <div class="content">
-    <div id="chats"></div>
-    <div id="messages-container">
-        <div id="messages"></div>
-        <div id="message-input-container">
-            <input placeholder="Type here" id="message-input">
-            <button type="submit">Send</button>
+    <div class="centered-content">
+        <div id="chats"></div>
+        <div id="messages-container">
+            <div id="messages"></div>
+            <form id="message-input-container" onsubmit="sendTextMessage(event)">
+                <input id="message-input" placeholder="Type here">
+                <button>Send</button>
+            </form>
         </div>
     </div>
 </div>

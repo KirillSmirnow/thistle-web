@@ -19,6 +19,15 @@ function signOut() {
     window.location.replace("/index.html");
 }
 
+function sendTextMessage(event) {
+    event.preventDefault();
+    let text = $("#message-input").val();
+    sendMessage(CHATS[SELECTED_CHAT].id, text, function () {
+        $("#message-input").val("");
+        updateMessages();
+    });
+}
+
 // Actions
 
 function updateProfile() {
@@ -42,7 +51,7 @@ function updateChatsList() {
             name.text(CHATS[i].name);
 
             element.click(function () {
-                $("#chats").children("div").each(function (child) {
+                $("#chats").children("div").each(function () {
                     $(this).removeClass("selected");
                 });
                 element.addClass("selected");
@@ -55,28 +64,29 @@ function updateChatsList() {
 
 function updateMessages() {
     getMessages(CHATS[SELECTED_CHAT].id, function (messages) {
-        console.log(messages);
-
         $("#messages").empty();
-        for (let i in messages) {
+        for (let i in messages.reverse()) {
             let element = $("<div>");
             $("#messages").append(element);
             element.addClass("chat-element");
 
             let text = $("<span>");
             element.append(text);
-            // text.addClass("chat-name");
+            text.addClass("chat-name");
             text.text(messages[i].text);
 
             let time = $("<span>");
             element.append(time);
-            // time.addClass("chat-name");
+            time.addClass("chat-name");
             time.text(messages[i].dateTime);
 
             let author = $("<span>");
             element.append(author);
-            // author.addClass("chat-name");
-            author.text(messages[i].author.firstName);
+            author.addClass("chat-name");
+            author.text(messages[i].author.firstName + " " + messages[i].author.lastName);
         }
+
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        $("#message-input").focus();
     });
 }
