@@ -19,56 +19,6 @@
     margin: 10px;
 }
 
-#controls {
-    margin: auto;
-    width: 600px;
-}
-
-#top-controls {
-    text-align: left;
-    padding: 0 0 5px 12px;
-}
-
-#previous, #next {
-    font-size: 16px;
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-}
-
-#audio-name {
-    display: inline-flex;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 315px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#shuffle {
-    width: 80px;
-    height: 30px;
-    border-radius: 30px;
-    font-size: 18px;
-}
-
-#upload {
-    margin-right: 12px;
-    width: 80px;
-    height: 30px;
-    border-radius: 30px;
-}
-
-#upload-ref {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-}
-
-#main-controls {
-    width: 100%;
-}
-
 /* CENTER */
 
 .content {
@@ -77,13 +27,8 @@
     text-align: center;
 }
 
-#search {
-    width: 90%;
-    height: 25px;
-    border-radius: 10px;
-    font-size: 16px;
-    padding-left: 5px;
-    padding-right: 5px;
+.selected {
+    background-color: blanchedalmond;
 }
 
 .list-element {
@@ -94,66 +39,17 @@
     background-color: aliceblue;
 }
 
-.play-button {
-    margin: 10px 10px 10px 12px;
-    width: 35px;
-    height: 30px;
-    font-size: 16px;
-    border-radius: 30px;
-}
-
-.audio-label {
+.user-name {
     display: inline-flex;
     overflow: auto;
     white-space: nowrap;
     width: 480px;
 }
 
-.delete-button {
+.user-button {
     margin: 10px 12px 10px 10px;
     width: 35px;
     height: 30px;
     font-size: 16px;
     border-radius: 30px;
-}
-
-/* UPLOAD */
-
-#upload-window {
-    width: 400px;
-    text-align: center;
-}
-
-#file-input, #name-input {
-    margin: 5px;
-    width: 90%;
-}
-
-#upload-action {
-    margin: 20px;
-}
-
-/* SPINNER */
-
-.spinner {
-    width: 30px;
-    height: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    border-top: 6px solid green;
-    border-right: 6px solid blue;
-    border-bottom: 6px solid red;
-    border-left: 6px solid yellow;
-    border-radius: 50%;
-    animation: spin 400ms linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }

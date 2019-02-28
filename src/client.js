@@ -80,6 +80,35 @@ function searchAudio(query, callback) {
     });
 }
 
+function getFriends(callback) {
+    $.get({
+        url: API + "/api/friends",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+function follow(id, callback) {
+    $.ajax({
+        url: API + "/api/friends/" + id + "/follow",
+        method: "PUT",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+function unfollow(id, callback) {
+    $.ajax({
+        url: API + "/api/friends/" + id + "/unfollow",
+        method: "PUT",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
 function headers() {
     return {
         "Authorization": "Bearer " + localStorage.getItem("accessToken")

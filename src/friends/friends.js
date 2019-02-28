@@ -1,3 +1,7 @@
+FRIENDS = [];
+IR = [];
+OR = [];
+
 // Initialize components
 
 // On page loaded
@@ -5,7 +9,9 @@
 if (localStorage.getItem("accessToken") == null) {
     signOut();
 } else {
+    switchToFriendsTab();
     updateProfile();
+    updateFriends();
 }
 
 // Controls
@@ -15,10 +21,109 @@ function signOut() {
     window.location.replace("/index.html");
 }
 
+function switchToFriendsTab() {
+    $("#friends-tab").show();
+    $("#ir-tab").hide();
+    $("#or-tab").hide();
+    $("#friends-label").addClass("selected");
+    $("#ir-label").removeClass("selected");
+    $("#or-label").removeClass("selected");
+}
+
+function switchToIncomingRequestsTab() {
+    $("#friends-tab").hide();
+    $("#ir-tab").show();
+    $("#or-tab").hide();
+    $("#friends-label").removeClass("selected");
+    $("#ir-label").addClass("selected");
+    $("#or-label").removeClass("selected");
+}
+
+function switchToOutgoingRequestsTab() {
+    $("#friends-tab").hide();
+    $("#ir-tab").hide();
+    $("#or-tab").show();
+    $("#friends-label").removeClass("selected");
+    $("#ir-label").removeClass("selected");
+    $("#or-label").addClass("selected");
+}
+
 // Actions
 
 function updateProfile() {
     getProfile(function (profile) {
         $("#name").text(profile["firstName"] + " " + profile["lastName"]);
     });
+}
+
+function updateFriends() {
+    getFriends(function (friendships) {
+        FRIENDS = friendships.friends;
+        IR = friendships.incomingRequests;
+        OR = friendships.outgoingRequests;
+        refreshFriends();
+    });
+}
+
+function refreshFriends() {
+    $("#friends-tab").empty();
+    $("#ir-tab").empty();
+    $("#or-tab").empty();
+
+    for (let i in FRIENDS) {
+        let element = $("<div>");
+        $("#friends-tab").append(element);
+        element.addClass("list-element");
+
+        let name = $("<span>");
+        element.append(name);
+        name.addClass("user-name");
+        name.text(FRIENDS[i].firstName + " " + FRIENDS[i].lastName);
+
+        let removeButton = $("<button>");
+        element.append(removeButton);
+        removeButton.addClass("user-button");
+        removeButton.text("🞩");
+        removeButton.click(function () {
+            unfollow(FRIENDS[i].id, updateFriends);
+        });
+    }
+
+    for (let i in IR) {
+        let element = $("<div>");
+        $("#ir-tab").append(element);
+        element.addClass("list-element");
+
+        let name = $("<span>");
+        element.append(name);
+        name.addClass("user-name");
+        name.text(IR[i].firstName + " " + IR[i].lastName);
+
+        let acceptButton = $("<button>");
+        element.append(acceptButton);
+        acceptButton.addClass("user-button");
+        acceptButton.text("✔");
+        acceptButton.click(function () {
+            follow(IR[i].id, updateFriends);
+        });
+    }
+
+    for (let i in OR) {
+        let element = $("<div>");
+        $("#or-tab").append(element);
+        element.addClass("list-element");
+
+        let name = $("<span>");
+        element.append(name);
+        name.addClass("user-name");
+        name.text(OR[i].firstName + " " + OR[i].lastName);
+
+        let cancelButton = $("<button>");
+        element.append(cancelButton);
+        cancelButton.addClass("user-button");
+        cancelButton.text("🞩");
+        cancelButton.click(function () {
+            unfollow(OR[i].id, updateFriends);
+        });
+    }
 }
