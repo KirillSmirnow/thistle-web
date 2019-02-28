@@ -49,11 +49,12 @@ function switchToOutgoingRequestsTab() {
 }
 
 function addVkFriends() {
-    $("#vk-friends-content").empty();
+    $("#vk-friends-content").text("No data");
     VK.init({apiId: 6764664});
     VK.Api.call("friends.get", {v: "5.73", fields: "first_name, last_name"}, function (result) {
         console.log(result);
         let friends = result.response.items;
+        $("#vk-friends-content").empty();
         for (let i in friends) {
             let element = $("<div>");
             $("#vk-friends-content").append(element);

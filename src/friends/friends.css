@@ -50,16 +50,18 @@
     margin: 5px 0 5px 0;
     border-radius: 20px;
     background-color: aliceblue;
+    text-align: left;
 }
 
 .user-name {
-    display: inline-flex;
+    float: left;
+    margin: 16px 16px 10px 12px;
     overflow: auto;
     white-space: nowrap;
-    width: 480px;
 }
 
 .user-button {
+    float: right;
     margin: 10px 12px 10px 10px;
     width: 35px;
     height: 30px;
@@ -69,12 +71,11 @@
 
 /* VK Friends window */
 #vk-friends-window {
-    width: 800px;
     height: 80%;
 }
 
 #vk-friends-content {
+    text-align: center;
     overflow: auto;
-    width: 95%;
-    height: 95%;
+    margin: auto;
 }
