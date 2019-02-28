@@ -49,9 +49,29 @@ function switchToOutgoingRequestsTab() {
 }
 
 function addVkFriends() {
+    $("#vk-friends-window").empty();
     VK.init({apiId: 6764664});
     VK.Api.call("friends.get", {v: "5.73", fields: "first_name, last_name"}, function (result) {
         console.log(result);
+        let friends = result.response.items;
+        for (let i in friends) {
+            let element = $("<div>");
+            $("#vk-friends-window").append(element);
+            element.addClass("list-element");
+
+            let name = $("<span>");
+            element.append(name);
+            name.addClass("user-name");
+            name.text(friends[i].firstName + " " + friends[i].lastName);
+
+            let addButton = $("<button>");
+            element.append(addButton);
+            addButton.addClass("user-button");
+            addButton.text("+");
+            addButton.click(function () {
+                addVkFriend(friends[i].id, updateFriends);
+            });
+        }
     });
 }
 

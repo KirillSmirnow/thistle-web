@@ -29,6 +29,15 @@
 
 #add-vk-friends {
     margin: 10px;
+    width: 170px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+#vk-friends-ref {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
 }
 
 .selected {

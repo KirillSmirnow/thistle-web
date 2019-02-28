@@ -80,6 +80,16 @@ function searchAudio(query, callback) {
     });
 }
 
+function addVkFriend(id, callback) {
+    $.ajax({
+        url: API + "/api/friends?vkId=" + id,
+        method: "PUT",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
 function getFriends(callback) {
     $.get({
         url: API + "/api/friends",
