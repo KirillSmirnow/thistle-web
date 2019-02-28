@@ -45,8 +45,9 @@ function getAudios(callback) {
 }
 
 function uploadAudio(formElement, successCallback, errorCallback) {
-    $.post({
+    $.ajax({
         url: API + "/api/audios/upload",
+        method: "PUT",
         data: new FormData(formElement),
         contentType: false,
         processData: false,
@@ -70,7 +71,7 @@ function deleteAudio(id, callback) {
 }
 
 function searchAudio(query, callback) {
-    $.post({
+    $.get({
         url: API + "/api/audios/search",
         data: {"query": query},
         headers: headers(),
