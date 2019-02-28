@@ -72,10 +72,11 @@
 /* VK Friends window */
 #vk-friends-window {
     height: 80%;
+    overflow: auto;
 }
 
 #vk-friends-content {
     text-align: center;
-    overflow: auto;
+    /*overflow: auto;*/
     margin: auto;
 }
