@@ -70,7 +70,10 @@ function addVkFriends() {
             addButton.addClass("user-button");
             addButton.text("+");
             addButton.click(function () {
-                addVkFriend(friends[i].id, updateFriends);
+                addVkFriend(friends[i].id, function () {
+                    $("#vk-friends-close-ref").click();
+                    updateFriends();
+                });
             });
         }
     });
