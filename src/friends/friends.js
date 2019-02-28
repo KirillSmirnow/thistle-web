@@ -48,6 +48,13 @@ function switchToOutgoingRequestsTab() {
     $("#or-label").addClass("selected");
 }
 
+function addVkFriends() {
+    VK.init({apiId: 6764664});
+    VK.Api.call("friends.get", {}, function (result) {
+        console.log(result);
+    });
+}
+
 // Actions
 
 function updateProfile() {

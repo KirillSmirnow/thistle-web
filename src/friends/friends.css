@@ -22,9 +22,13 @@
 /* CENTER */
 
 .content {
-    margin: 140px auto auto auto;
+    margin: 50px auto auto auto;
     width: 600px;
     text-align: center;
+}
+
+#add-vk-friends {
+    margin: 10px;
 }
 
 .selected {
