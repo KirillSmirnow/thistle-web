@@ -69,10 +69,12 @@
 
 /* VK Friends window */
 #vk-friends-window {
-    width: 600px;
+    width: 650px;
     height: 80%;
 }
 
 #vk-friends-content {
     overflow: auto;
+    width: 600px;
+    height: 95%;
 }
