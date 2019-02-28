@@ -1,5 +1,7 @@
 const API = "http://api.thistle.ml";
 
+// User
+
 function vkAuth(vkAuth, callback) {
     $.post({
         url: API + "/oauth/vk",
@@ -34,6 +36,8 @@ function getProfile(callback) {
         error: error
     });
 }
+
+// Audio
 
 function getAudios(callback) {
     $.get({
@@ -80,6 +84,8 @@ function searchAudio(query, callback) {
     });
 }
 
+// Friends
+
 function addVkFriend(id, callback) {
     $.ajax({
         url: API + "/api/friends?vkId=" + id,
@@ -118,6 +124,49 @@ function unfollow(id, callback) {
         error: error
     });
 }
+
+// Chats
+
+function getChats(callback) {
+    $.get({
+        url: API + "/api/chats",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+function createChat(chat, callback) {
+    $.post({
+        url: API + "/api/chats",
+        contentType: "application/json",
+        data: JSON.stringify(chat),
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+function getMessages(chatId, callback) {
+    $.get({
+        url: API + "/api/chats/" + chatId + "/messages",
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+function sendMessage(chatId, text, callback) {
+    $.post({
+        url: API + "/api/chats/" + chatId + "/messages",
+        data: {text: text},
+        headers: headers(),
+        success: callback,
+        error: error
+    });
+}
+
+// Common
 
 function headers() {
     return {
