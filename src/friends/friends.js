@@ -50,7 +50,7 @@ function switchToOutgoingRequestsTab() {
 
 function addVkFriends() {
     VK.init({apiId: 6764664});
-    VK.Api.call("friends.get", {v: "5.73"}, function (result) {
+    VK.Api.call("friends.get", {v: "5.73", fields: "first_name, last_name"}, function (result) {
         console.log(result);
     });
 }
