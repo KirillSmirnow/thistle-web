@@ -1,10 +1,11 @@
-const API = "http://api.thistle.ml";
+const WS_API = "ws://api.thistle.ml";
+const HTTP_API = "http://api.thistle.ml";
 
 // User
 
 function vkAuth(vkAuth, callback) {
     $.post({
-        url: API + "/oauth/vk",
+        url: HTTP_API + "/oauth/vk",
         dataType: "text",
         contentType: "application/json",
         data: JSON.stringify(vkAuth),
@@ -17,7 +18,7 @@ function vkAuth(vkAuth, callback) {
 
 function getToken(code, callback) {
     $.post({
-        url: API + "/oauth/token",
+        url: HTTP_API + "/oauth/token",
         data: {"grant_type": "authorization_code", "code": code},
         headers: {"Authorization": "Basic " + btoa("thistle:thistle")},
         success: function (response) {
@@ -30,7 +31,7 @@ function getToken(code, callback) {
 
 function getProfile(callback) {
     $.get({
-        url: API + "/api/profile",
+        url: HTTP_API + "/api/profile",
         headers: headers(),
         success: callback,
         error: error
@@ -41,7 +42,7 @@ function getProfile(callback) {
 
 function getAudios(callback) {
     $.get({
-        url: API + "/api/audios",
+        url: HTTP_API + "/api/audios",
         headers: headers(),
         success: callback,
         error: error
@@ -50,7 +51,7 @@ function getAudios(callback) {
 
 function uploadAudio(formElement, successCallback, errorCallback) {
     $.ajax({
-        url: API + "/api/audios/upload",
+        url: HTTP_API + "/api/audios/upload",
         method: "PUT",
         data: new FormData(formElement),
         contentType: false,
@@ -66,7 +67,7 @@ function uploadAudio(formElement, successCallback, errorCallback) {
 
 function deleteAudio(id, callback) {
     $.ajax({
-        url: API + "/api/audios/" + id,
+        url: HTTP_API + "/api/audios/" + id,
         method: 'DELETE',
         headers: headers(),
         success: callback,
@@ -76,7 +77,7 @@ function deleteAudio(id, callback) {
 
 function searchAudio(query, callback) {
     $.get({
-        url: API + "/api/audios/search",
+        url: HTTP_API + "/api/audios/search",
         data: {"query": query},
         headers: headers(),
         success: callback,
@@ -88,7 +89,7 @@ function searchAudio(query, callback) {
 
 function addVkFriend(id, callback) {
     $.ajax({
-        url: API + "/api/friends?vkId=" + id,
+        url: HTTP_API + "/api/friends?vkId=" + id,
         method: "PUT",
         headers: headers(),
         success: callback,
@@ -98,7 +99,7 @@ function addVkFriend(id, callback) {
 
 function getFriends(callback) {
     $.get({
-        url: API + "/api/friends",
+        url: HTTP_API + "/api/friends",
         headers: headers(),
         success: callback,
         error: error
@@ -107,7 +108,7 @@ function getFriends(callback) {
 
 function follow(id, callback) {
     $.ajax({
-        url: API + "/api/friends/" + id + "/follow",
+        url: HTTP_API + "/api/friends/" + id + "/follow",
         method: "PUT",
         headers: headers(),
         success: callback,
@@ -117,7 +118,7 @@ function follow(id, callback) {
 
 function unfollow(id, callback) {
     $.ajax({
-        url: API + "/api/friends/" + id + "/unfollow",
+        url: HTTP_API + "/api/friends/" + id + "/unfollow",
         method: "PUT",
         headers: headers(),
         success: callback,
@@ -129,7 +130,7 @@ function unfollow(id, callback) {
 
 function getChats(callback) {
     $.get({
-        url: API + "/api/chats",
+        url: HTTP_API + "/api/chats",
         headers: headers(),
         success: callback,
         error: error
@@ -138,7 +139,7 @@ function getChats(callback) {
 
 function createChat(chat, callback) {
     $.post({
-        url: API + "/api/chats",
+        url: HTTP_API + "/api/chats",
         contentType: "application/json",
         data: JSON.stringify(chat),
         headers: headers(),
@@ -149,7 +150,7 @@ function createChat(chat, callback) {
 
 function getMessages(chatId, callback) {
     $.get({
-        url: API + "/api/chats/" + chatId + "/messages",
+        url: HTTP_API + "/api/chats/" + chatId + "/messages",
         headers: headers(),
         success: callback,
         error: error
@@ -158,7 +159,7 @@ function getMessages(chatId, callback) {
 
 function sendMessage(chatId, text, callback) {
     $.post({
-        url: API + "/api/chats/" + chatId + "/messages",
+        url: HTTP_API + "/api/chats/" + chatId + "/messages",
         data: {text: text},
         headers: headers(),
         success: callback,

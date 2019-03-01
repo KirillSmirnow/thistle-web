@@ -60,6 +60,13 @@ function updateChatsList() {
                 SELECTED_CHAT = i;
                 updateMessages();
             });
+
+            let stomp = Stomp.client(WS_API + "/ws");
+            stomp.connect({}, function () {
+                stomp.subscribe("/chats/" + CHATS[i].id, function (message) {
+                    console.log(message);
+                });
+            });
         }
 
         $("#chats").children().first().click();
