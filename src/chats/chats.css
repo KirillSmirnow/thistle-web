@@ -79,20 +79,20 @@ html, body {
 }
 
 .message {
-    display: block;
     margin: 10px 5px 10px 5px;
     padding: 5px 10px 5px 10px;
     max-width: 70%;
+    width: fit-content;
     border-radius: 10px;
     overflow-y: hidden;
     background-color: lightyellow;
 }
 
 .message-self {
-    display: block;
-    margin: 10px 5px 10px 5px;
+    margin: 10px 5px 10px auto;
     padding: 5px 10px 5px 10px;
     max-width: 70%;
+    width: fit-content;
     border-radius: 10px;
     overflow-y: hidden;
     background-color: palegreen;
