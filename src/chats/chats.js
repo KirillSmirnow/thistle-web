@@ -1,5 +1,6 @@
 CHATS = [];
 SELECTED_CHAT = -1;
+USER_ID = -1;
 
 // Initialize components
 
@@ -32,6 +33,7 @@ function sendTextMessage(event) {
 
 function updateProfile() {
     getProfile(function (profile) {
+        USER_ID = profile.id;
         $("#name").text(profile["firstName"] + " " + profile["lastName"]);
     });
 }
@@ -59,6 +61,8 @@ function updateChatsList() {
                 updateMessages();
             });
         }
+
+        $("#chats").children().first().click();
     });
 }
 
@@ -68,22 +72,27 @@ function updateMessages() {
         for (let i in messages.reverse()) {
             let element = $("<div>");
             $("#messages").append(element);
-            element.addClass("chat-element");
 
-            let text = $("<span>");
+            let author = $("<div>");
+            author.addClass("message-author");
+            author.text(messages[i].author.firstName + " " + messages[i].author.lastName);
+
+            if (messages[i].author.id === USER_ID) {
+                element.addClass("message-self");
+            } else {
+                element.addClass("message");
+                element.append(author);
+            }
+
+            let text = $("<div>");
             element.append(text);
-            text.addClass("chat-name");
+            text.addClass("message-text");
             text.text(messages[i].text);
 
-            let time = $("<span>");
+            let time = $("<div>");
             element.append(time);
-            time.addClass("chat-name");
-            time.text(messages[i].dateTime);
-
-            let author = $("<span>");
-            element.append(author);
-            author.addClass("chat-name");
-            author.text(messages[i].author.firstName + " " + messages[i].author.lastName);
+            time.addClass("message-time");
+            time.text(formatMessageTime(messages[i].dateTime));
         }
 
         $('#messages').scrollTop($('#messages')[0].scrollHeight);

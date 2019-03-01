@@ -77,3 +77,39 @@ html, body {
 #message-input {
     flex: 1;
 }
+
+.message {
+    display: block;
+    margin: 10px 5px 10px 5px;
+    padding: 5px 10px 5px 10px;
+    max-width: 70%;
+    border-radius: 10px;
+    overflow-y: hidden;
+    background-color: lightyellow;
+}
+
+.message-self {
+    display: block;
+    margin: 10px 5px 10px 5px;
+    padding: 5px 10px 5px 10px;
+    max-width: 70%;
+    border-radius: 10px;
+    overflow-y: hidden;
+    background-color: palegreen;
+}
+
+.message-author {
+    color: green;
+    font-size: 12px;
+}
+
+.message-text {
+    margin: 5px 0 5px 0;
+    overflow-wrap: break-word;
+}
+
+.message-time {
+    float: right;
+    color: gray;
+    font-size: 10px;
+}
