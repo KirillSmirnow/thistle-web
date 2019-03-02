@@ -23,10 +23,11 @@ function signOut() {
 function sendTextMessage(event) {
     event.preventDefault();
     let text = $("#message-input").val();
-    sendMessage(CHATS[SELECTED_CHAT].id, text, function () {
-        $("#message-input").val("");
-        updateMessages();
-    });
+    if (text.length > 0) {
+        sendMessage(CHATS[SELECTED_CHAT].id, text, function () {
+            $("#message-input").val("");
+        });
+    }
 }
 
 // Actions
@@ -64,7 +65,9 @@ function updateChatsList() {
             let stomp = Stomp.client(WS_API + "/ws");
             stomp.connect({}, function () {
                 stomp.subscribe("/chats/" + CHATS[i].id, function (message) {
-                    console.log(message);
+                    if (CHATS[i].id === CHATS[SELECTED_CHAT].id) {
+                        addMessage(JSON.parse(message.body));
+                    }
                 });
             });
         }
@@ -77,32 +80,36 @@ function updateMessages() {
     getMessages(CHATS[SELECTED_CHAT].id, function (messages) {
         $("#messages").empty();
         for (let i in messages.reverse()) {
-            let element = $("<div>");
-            $("#messages").append(element);
-
-            let author = $("<div>");
-            author.addClass("message-author");
-            author.text(messages[i].author.firstName + " " + messages[i].author.lastName);
-
-            if (messages[i].author.id === USER_ID) {
-                element.addClass("message-self");
-            } else {
-                element.addClass("message");
-                element.append(author);
-            }
-
-            let text = $("<div>");
-            element.append(text);
-            text.addClass("message-text");
-            text.text(messages[i].text);
-
-            let time = $("<div>");
-            element.append(time);
-            time.addClass("message-time");
-            time.text(formatMessageTime(messages[i].dateTime));
+            addMessage(messages[i]);
         }
-
-        $('#messages').scrollTop($('#messages')[0].scrollHeight);
         $("#message-input").focus();
     });
+}
+
+function addMessage(message) {
+    let element = $("<div>");
+    $("#messages").append(element);
+
+    let author = $("<div>");
+    author.addClass("message-author");
+    author.text(message.author.firstName + " " + message.author.lastName);
+
+    if (message.author.id === USER_ID) {
+        element.addClass("message-self");
+    } else {
+        element.addClass("message");
+        element.append(author);
+    }
+
+    let text = $("<div>");
+    element.append(text);
+    text.addClass("message-text");
+    text.text(message.text);
+
+    let time = $("<div>");
+    element.append(time);
+    time.addClass("message-time");
+    time.text(formatMessageTime(message.dateTime));
+
+    $('#messages').scrollTop($('#messages')[0].scrollHeight);
 }
